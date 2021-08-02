@@ -7,6 +7,7 @@ public class GraphGrid : MonoBehaviour {
   // [Header("Information")]
   public int Rows { get => tiles.childCount; }
   public int Cols { get => tiles.GetChild(0).childCount; }
+  public float TileSize { get => Vector3.Distance(GetTile(0,0).transform.position, GetTile(0,1).transform.position); }
 
   [Header("Initialization")]
   public Transform tiles;

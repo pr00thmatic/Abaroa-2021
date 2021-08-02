@@ -10,10 +10,6 @@ public class Tile : MonoBehaviour {
   [Header("Information")]
   public Unit occupier;
   public bool IsOccupied { get => occupier; }
-  public bool IsShinning {
-    get => selected.activeSelf;
-    set => Shine(value);
-  }
   public Vector2 RowColumn { get => new Vector2(Row, Column); }
   public int Row { get => transform.parent.GetSiblingIndex(); }
   public int Column { get => transform.GetSiblingIndex(); }
@@ -31,6 +27,7 @@ public class Tile : MonoBehaviour {
 
   [Header("Initialization")]
   public GameObject selected;
+  public GameObject attack;
 
   void OnMouseUpAsButton () {
     onSelected?.Invoke(this);
@@ -51,8 +48,13 @@ public class Tile : MonoBehaviour {
     }
   }
 
-  public void Shine (bool value) {
-    selected.SetActive(value);
+  public void StopShinning () {
+    selected.SetActive(false);
+    attack.SetActive(false);
+  }
+  public void Shine (ActionType type) {
+    selected.SetActive(!attack.gameObject.activeSelf && type == ActionType.Motion);
+    attack.SetActive(type == ActionType.Attack);
   }
 }
 }

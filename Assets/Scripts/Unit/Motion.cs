@@ -5,30 +5,42 @@ using MatrixGraph;
 
 public class Motion : MonoBehaviour {
   public event System.Action<Motion> onStartMoving;
+  public event System.Action<Motion> onStopMoving;
 
   [Header("Configuration")]
   public int distance;
   public float speed = 8;
+  public int actions = 1;
 
   [Header("Information")]
+  public int remainingActions = 0;
   public bool showingMotion;
   public List<Tile> shinning;
+  public bool CanMove { get => remainingActions > 0; }
 
   [Header("Initialization")]
-  public GraphGrid grid;
   public Dictionary<Tile, float> distances; // TODO: record this at the beginning of the turn
   public Transform rootMotion;
-  public Unit unit;
+  public PlayingUnit unit;
+  public LerpedRotation forward;
 
-  void Reset () {
-    grid = GameObject.FindObjectOfType<GraphGrid>();
+  void OnEnable () {
+    unit.onTurnBegin += HandleTurnBegin;
+    unit.onTurnEnd += HandleTurnEnd;
+    unit.onSelected += OnSelected;
+  }
+
+  void OnDisable () {
+    unit.onTurnBegin -= HandleTurnBegin;
+    unit.onTurnEnd -= HandleTurnEnd;
+    unit.onSelected -= OnSelected;
   }
 
   public void DisplayMotion (Tile t, bool value) {
     if (!value) { // turn'em off
       showingMotion = false;
       foreach (Tile tile in shinning) {
-        tile.IsShinning = false;
+        tile.StopShinning();
         tile.onSelected -= HandleSelection;
       }
     } else { // turn'em on
@@ -36,7 +48,7 @@ public class Motion : MonoBehaviour {
       shinning.Clear();
       Dijkstra();
       foreach (Tile tile in shinning) {
-        tile.IsShinning = true;
+        tile.Shine(ActionType.Motion);
         tile.onSelected += HandleSelection;
       }
     }
@@ -49,11 +61,13 @@ public class Motion : MonoBehaviour {
   public void Move (Tile t) { StopAllCoroutines(); StartCoroutine(_Move(t)); }
   IEnumerator _Move (Tile t) {
     onStartMoving?.Invoke(this);
+    remainingActions = Mathf.Max(remainingActions-1, 0);
+    unit.ConsumeAction();
     Tile standing = unit.standing;
     Tile origin = t;
     List<Tile> path = new List<Tile>();
 
-    do {
+    do { // was this the clever dijkstra? o_O
       path.Add(origin);
       Tile destination = null;
       foreach (Tile tile in origin.Adjascent) {
@@ -76,11 +90,16 @@ public class Motion : MonoBehaviour {
       Tile destination = path[i];
 
       while (Vector3.Distance(rootMotion.transform.position, destination.transform.position) > 0.05f) {
+        unit.animator.SetFloat("speed", 1);
+        forward.targetForward = Utils.SetY(destination.transform.position - rootMotion.transform.position, 0);
         rootMotion.transform.position = Vector3.MoveTowards(rootMotion.transform.position, destination.transform.position,
                                                             speed * Time.deltaTime);
         yield return null;
       }
     }
+    forward.ForceComplete();
+    unit.animator.SetFloat("speed", 0);
+    onStopMoving?.Invoke(this);
   }
 
   public void Dijkstra () {
@@ -120,5 +139,21 @@ public class Motion : MonoBehaviour {
 
   public float KnownDistanceTo (Tile tile) {
     return distances.ContainsKey(tile)? distances[tile]: Mathf.Infinity;
+  }
+
+  public void OnSelected (bool value) {
+    if (!value) {
+      DisplayMotion(unit.standing, false);
+    } else if (CanMove) {
+      DisplayMotion(unit.standing, value);
+    }
+  }
+
+  public void HandleTurnBegin () {
+    remainingActions = actions;
+  }
+
+  public void HandleTurnEnd () {
+    remainingActions = 0;
   }
 }

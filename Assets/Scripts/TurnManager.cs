@@ -4,18 +4,31 @@ using System.Collections.Generic;
 using MatrixGraph;
 
 public class TurnManager : MonoBehaviour {
+  public static event System.Action<TurnManager> onTurnBegin;
+  public static event System.Action<TurnManager> onTurnEnd;
+
+  [Header("Configuration")]
+  public int faction = 0;
+
   [Header("Information")]
-  public int playerTurn = 0;
-  public Unit selectedUnit;
+  public PlayingUnit selectedUnit;
+  public int remainingActions = 0;
+  public Motion blockedByMotion = null;
 
   void OnEnable () {
-    Unit.onClicked += HandleUnitClick;
+    PlayingUnit.onClicked += HandleUnitClick;
     Tile.onAnySelected += HandleTileClick;
+    BeginTurn(); // TODO: remove?
   }
 
   void OnDisable () {
-    Unit.onClicked -= HandleUnitClick;
+    PlayingUnit.onClicked -= HandleUnitClick;
     Tile.onAnySelected -= HandleTileClick;
+  }
+
+  public void BeginTurn () {
+    remainingActions = 0;
+    onTurnBegin?.Invoke(this);
   }
 
   public void DeselectSelected () {
@@ -23,11 +36,16 @@ public class TurnManager : MonoBehaviour {
     selectedUnit = null;
   }
 
-  public void HandleUnitClick (Unit clicked) {
-    if (clicked.faction.id != playerTurn) return;
+  public void HandleUnitClick (PlayingUnit clicked) {
+    if (blockedByMotion) return;
+    if (clicked.faction.id != faction && selectedUnit && selectedUnit.attack.actions > 0) {
+      selectedUnit.attack.AttackIt(clicked);
+      return;
+    }
+    if (clicked.RemainingActions <= 0) return;
 
     if (selectedUnit) {
-      Unit selected = selectedUnit;
+      PlayingUnit selected = selectedUnit;
       DeselectSelected();
       if (selected == clicked) return;
     }
@@ -39,10 +57,26 @@ public class TurnManager : MonoBehaviour {
 
   public void HandleMotion (Motion motion) {
     motion.onStartMoving -= HandleMotion;
-    DeselectSelected();
+    blockedByMotion = motion;
+    motion.onStopMoving += HandleStop;
+  }
+
+  public void HandleStop (Motion motion) {
+    motion.onStopMoving -= HandleStop;
+    if (blockedByMotion == motion) blockedByMotion = null;
   }
 
   public void HandleTileClick (Tile tile) {
-    if (tile.occupier) HandleUnitClick(tile.occupier);
+    if (tile.occupier) HandleUnitClick(tile.occupier as PlayingUnit);
+  }
+
+  public void ConsumeAction () {
+    remainingActions--;
+    DeselectSelected();
+    if (remainingActions <= 0) {
+      remainingActions = 0;
+      onTurnEnd?.Invoke(this);
+      GetComponentInParent<StateMachine>().SetNextState();
+    }
   }
 }
