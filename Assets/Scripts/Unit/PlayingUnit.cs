@@ -14,10 +14,11 @@ public class PlayingUnit : Unit {
 
   [Header("Information")]
   public Tile standing;
-  public int RemainingActions {
-    get => motion.remainingActions + attack.remainingActions;
-  }
   public TurnManager turn;
+  public bool hasRemainingActions;
+  public bool HasRemainingActions {
+    get => motion.HasRemainingActions || attack.HasRemainingActions;
+  }
 
   [Header("Initialization")]
   public Attack attack;
@@ -45,6 +46,10 @@ public class PlayingUnit : Unit {
     onClicked?.Invoke(this);
   }
 
+  void Update () {
+    hasRemainingActions = HasRemainingActions;
+  }
+
   public void Deselect () {
     onSelected?.Invoke(false);
   }
@@ -54,23 +59,27 @@ public class PlayingUnit : Unit {
   }
 
   public void ConsumeAction () {
-    animator.SetBool("has action", RemainingActions > 0);
-    turn.ConsumeAction();
+    turn.DeselectSelected();
+    turn.CheckForEndTurn();
+    UpdateHasActionAnimation();
   }
 
   public void HandleBeginOfTurn (TurnManager turn) {
     if (turn.faction != this.faction.id) return;
+    turn.unitsInTurn.Add(this);
     onTurnBegin?.Invoke();
 
     this.turn = turn;
-    turn.remainingActions += TotalActions;
-    animator.SetBool("has action", RemainingActions > 0);
+    UpdateHasActionAnimation();
   }
 
   public void HandleEndOfTurn (TurnManager turn) {
     if (turn.faction != this.faction.id) return;
     onTurnEnd?.Invoke();
-    turn.remainingActions = 0;
-    animator.SetBool("has action", RemainingActions > 0);
+    UpdateHasActionAnimation();
+  }
+
+  public void UpdateHasActionAnimation () {
+    animator.SetBool("has action", HasRemainingActions);
   }
 }

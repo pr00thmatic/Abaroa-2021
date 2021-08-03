@@ -6,8 +6,8 @@ namespace MatrixGraph {
 public class Tile : MonoBehaviour {
   public static event System.Action<Tile> onAnySelected;
   public event System.Action<Tile> onSelected;
-
   [Header("Information")]
+  public bool isMouseOver;
   public Unit occupier;
   public bool IsOccupied { get => occupier; }
   public Vector2 RowColumn { get => new Vector2(Row, Column); }
@@ -32,6 +32,14 @@ public class Tile : MonoBehaviour {
   void OnMouseUpAsButton () {
     onSelected?.Invoke(this);
     onAnySelected?.Invoke(this);
+  }
+
+  void OnMouseOver () {
+    isMouseOver = true;
+  }
+
+  void OnMouseExit () {
+    isMouseOver = false;
   }
 
   void OnTriggerStay (Collider c) {

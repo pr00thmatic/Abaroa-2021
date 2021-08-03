@@ -12,8 +12,8 @@ public class TurnManager : MonoBehaviour {
 
   [Header("Information")]
   public PlayingUnit selectedUnit;
-  public int remainingActions = 0;
   public Motion blockedByMotion = null;
+  public List<PlayingUnit> unitsInTurn;
 
   void OnEnable () {
     PlayingUnit.onClicked += HandleUnitClick;
@@ -24,10 +24,12 @@ public class TurnManager : MonoBehaviour {
   void OnDisable () {
     PlayingUnit.onClicked -= HandleUnitClick;
     Tile.onAnySelected -= HandleTileClick;
+    EndTurn();
   }
 
   public void BeginTurn () {
-    remainingActions = 0;
+    if (unitsInTurn == null) unitsInTurn = new List<PlayingUnit>();
+    unitsInTurn.Clear();
     onTurnBegin?.Invoke(this);
   }
 
@@ -42,7 +44,7 @@ public class TurnManager : MonoBehaviour {
       selectedUnit.attack.AttackIt(clicked);
       return;
     }
-    if (clicked.RemainingActions <= 0) return;
+    if (!clicked.HasRemainingActions) return;
 
     if (selectedUnit) {
       PlayingUnit selected = selectedUnit;
@@ -70,13 +72,21 @@ public class TurnManager : MonoBehaviour {
     if (tile.occupier) HandleUnitClick(tile.occupier as PlayingUnit);
   }
 
-  public void ConsumeAction () {
-    remainingActions--;
+  public void EndTurn () {
+    unitsInTurn.Clear();
     DeselectSelected();
-    if (remainingActions <= 0) {
-      remainingActions = 0;
-      onTurnEnd?.Invoke(this);
-      GetComponentInParent<StateMachine>().SetNextState();
+    onTurnEnd?.Invoke(this);
+  }
+
+  public bool CheckForEndTurn () {
+    foreach (PlayingUnit unit in unitsInTurn) {
+      if (unit.HasRemainingActions) {
+        return false;
+      }
     }
+
+    EndTurn();
+    GetComponentInParent<StateMachine>().SetNextState();
+    return true;
   }
 }

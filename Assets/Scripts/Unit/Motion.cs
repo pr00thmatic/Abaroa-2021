@@ -16,7 +16,7 @@ public class Motion : MonoBehaviour {
   public int remainingActions = 0;
   public bool showingMotion;
   public List<Tile> shinning;
-  public bool CanMove { get => remainingActions > 0; }
+  public bool HasRemainingActions { get => remainingActions > 0; }
 
   [Header("Initialization")]
   public Dictionary<Tile, float> distances; // TODO: record this at the beginning of the turn
@@ -62,7 +62,7 @@ public class Motion : MonoBehaviour {
   IEnumerator _Move (Tile t) {
     onStartMoving?.Invoke(this);
     remainingActions = Mathf.Max(remainingActions-1, 0);
-    unit.ConsumeAction();
+    unit.turn.DeselectSelected();
     Tile standing = unit.standing;
     Tile origin = t;
     List<Tile> path = new List<Tile>();
@@ -100,6 +100,7 @@ public class Motion : MonoBehaviour {
     forward.ForceComplete();
     unit.animator.SetFloat("speed", 0);
     onStopMoving?.Invoke(this);
+    unit.ConsumeAction();
   }
 
   public void Dijkstra () {
@@ -144,7 +145,7 @@ public class Motion : MonoBehaviour {
   public void OnSelected (bool value) {
     if (!value) {
       DisplayMotion(unit.standing, false);
-    } else if (CanMove) {
+    } else if (HasRemainingActions) {
       DisplayMotion(unit.standing, value);
     }
   }
