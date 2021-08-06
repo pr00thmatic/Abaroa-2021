@@ -8,6 +8,6 @@ public class FactionSensitiveRenderer : MonoBehaviour {
   public int materialIndex;
 
   void Reset () {
-    GetComponent<Renderer>();
+    renderer = GetComponent<Renderer>();
   }
 }

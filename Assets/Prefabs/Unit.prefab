@@ -345,6 +345,7 @@ MonoBehaviour:
   distance: 5
   speed: 5
   actions: 1
+  animationSpeed: 1
   remainingActions: 0
   showingMotion: 0
   shinning: []
@@ -364,7 +365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetForward: {x: 0, y: 0, z: 0}
-  angularSpeed: 360
+  angularSpeed: 720
   root: {fileID: 7213363481091573400}
 --- !u!114 &1967506400575569386
 MonoBehaviour:
@@ -402,6 +403,7 @@ MonoBehaviour:
   power: 1
   unit: {fileID: 1967506400575569386}
   remainingActions: 0
+  forward: {fileID: 1576278108247464659}
 --- !u!114 &7723392528870025281
 MonoBehaviour:
   m_ObjectHideFlags: 0

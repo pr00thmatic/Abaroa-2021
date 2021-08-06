@@ -11,6 +11,7 @@ public class Motion : MonoBehaviour {
   public int distance;
   public float speed = 8;
   public int actions = 1;
+  public float animationSpeed = 1;
 
   [Header("Information")]
   public int remainingActions = 0;
@@ -90,7 +91,7 @@ public class Motion : MonoBehaviour {
       Tile destination = path[i];
 
       while (Vector3.Distance(rootMotion.transform.position, destination.transform.position) > 0.05f) {
-        unit.animator.SetFloat("speed", 1);
+        unit.animator.SetFloat("speed", animationSpeed);
         forward.targetForward = Utils.SetY(destination.transform.position - rootMotion.transform.position, 0);
         rootMotion.transform.position = Vector3.MoveTowards(rootMotion.transform.position, destination.transform.position,
                                                             speed * Time.deltaTime);
