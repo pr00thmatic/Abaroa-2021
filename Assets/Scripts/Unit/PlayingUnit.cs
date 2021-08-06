@@ -26,6 +26,7 @@ public class PlayingUnit : Unit {
   public Animator animator;
 
   void OnEnable () {
+    if (!animator) animator = GetComponentInChildren<Animator>();
     TurnManager.onTurnBegin += HandleBeginOfTurn;
     TurnManager.onTurnEnd += HandleEndOfTurn;
   }
