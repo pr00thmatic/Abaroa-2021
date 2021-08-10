@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Chileno
+  m_Controller: {fileID: 9100000, guid: 1f81fa7f5202fda45904d33a82d585d9, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: -251351218608039746, guid: 891a8f533f5e5da48872dc6ae0c952ce, type: 3}
+    m_OverrideClip: {fileID: -6239216113759591374, guid: ab05ba339073332438e8681d9845b094, type: 3}
+  - m_OriginalClip: {fileID: -5377216715430877148, guid: 891a8f533f5e5da48872dc6ae0c952ce, type: 3}
+    m_OverrideClip: {fileID: 2963219463598164401, guid: ab05ba339073332438e8681d9845b094, type: 3}
+  - m_OriginalClip: {fileID: 7419022235548007917, guid: 891a8f533f5e5da48872dc6ae0c952ce, type: 3}
+    m_OverrideClip: {fileID: 7419022235548007917, guid: ab05ba339073332438e8681d9845b094, type: 3}
+  - m_OriginalClip: {fileID: 5105083536339553210, guid: 891a8f533f5e5da48872dc6ae0c952ce, type: 3}
+    m_OverrideClip: {fileID: 5276562859985541099, guid: ab05ba339073332438e8681d9845b094, type: 3}
+  - m_OriginalClip: {fileID: 1162686199744059260, guid: 891a8f533f5e5da48872dc6ae0c952ce, type: 3}
+    m_OverrideClip: {fileID: -7986885854542403650, guid: ab05ba339073332438e8681d9845b094, type: 3}
+  - m_OriginalClip: {fileID: -4799524434163024911, guid: 891a8f533f5e5da48872dc6ae0c952ce, type: 3}
+    m_OverrideClip: {fileID: -3419257869308726280, guid: ab05ba339073332438e8681d9845b094, type: 3}
