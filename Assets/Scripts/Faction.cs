@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class Faction : MonoBehaviour {
   [Header("Configuration")]
   public int id;
+  public bool controlledByPlayer = false;
 
   [Header("Information")]
   public int aknowledgedChildren = 0;

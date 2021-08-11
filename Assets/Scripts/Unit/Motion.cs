@@ -28,7 +28,9 @@ public class Motion : MonoBehaviour {
   void OnEnable () {
     unit.onTurnBegin += HandleTurnBegin;
     unit.onTurnEnd += HandleTurnEnd;
-    unit.onSelected += OnSelected;
+    if (unit.Faction.controlledByPlayer) {
+      unit.onSelected += OnSelected;
+    }
   }
 
   void OnDisable () {

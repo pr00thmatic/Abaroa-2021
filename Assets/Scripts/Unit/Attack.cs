@@ -18,7 +18,9 @@ public class Attack : MonoBehaviour {
   void OnEnable () {
     unit.onTurnBegin += HandleTurnBegin;
     unit.onTurnEnd += HandleTurnEnd;
-    unit.onSelected += OnSelected;
+    if (unit.Faction.controlledByPlayer) {
+      unit.onSelected += OnSelected;
+    }
   }
 
   void OnDisable () {
@@ -38,15 +40,7 @@ public class Attack : MonoBehaviour {
 
   public bool CanAttackAdjascent () {
     if (!unit.standing) return false;
-
-    List<Tile> adjascent = unit.standing.Adjascent;
-
-    foreach (Tile tile in adjascent) {
-      if (!tile) continue;
-      if (tile.occupier && CanAttack(tile.occupier)) return true;
-    }
-
-    return false;
+    return GetAttackables().Count > 0;
   }
 
   public bool CanAttack (Unit other) {
@@ -57,13 +51,24 @@ public class Attack : MonoBehaviour {
     return (range + 0.5f) * unit.Grid.TileSize >= distance;
   }
 
-  public void DisplayAttack () {
+  public List<Attackable> GetAttackables () {
     List<Tile> adjascent = unit.standing.Adjascent;
+    List<Attackable> attackables = new List<Attackable>();
 
     foreach (Tile tile in adjascent) {
       if (tile && tile.occupier && CanAttack(tile.occupier)) {
-        tile.Shine(ActionType.Attack);
+        attackables.Add(tile.occupier.GetComponent<Attackable>());
       }
+    }
+
+    return attackables;
+  }
+
+  public void DisplayAttack () {
+    List<Attackable> attackables = GetAttackables();
+
+    foreach (Attackable attackable in attackables) {
+      attackable.unit.standing.Shine(ActionType.Attack);
     }
   }
 

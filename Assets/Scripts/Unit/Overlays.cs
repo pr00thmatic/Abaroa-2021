@@ -15,6 +15,7 @@ public class Overlays : MonoBehaviour {
 
   void OnEnable () {
     attackable.onHPChange += HandleHPChange;
+    HandleHPChange();
   }
 
   void OnDisable () {

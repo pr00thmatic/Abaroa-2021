@@ -161,6 +161,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7665916049715648729, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.02
+      objectReference: {fileID: 0}
     - target: {fileID: 8021143425821531170, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
       propertyPath: m_Name
       value: Chileno Variant
