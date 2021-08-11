@@ -12,11 +12,16 @@ public class Faction : MonoBehaviour {
 
   [Header("Initialization")]
   public Material factionColor;
+  public Material standingTileColor;
+  public GameObject onDefeat;
 
   void Update () {
     if (aknowledgedChildren != transform.childCount) {
       UpdateColors();
       aknowledgedChildren = transform.childCount;
+      if (transform.childCount == 0) {
+        onDefeat.SetActive(true);
+      }
     }
   }
 

@@ -24,6 +24,8 @@ public class PlayingUnit : Unit {
   public Attack attack;
   public Motion motion;
   public Animator animator;
+  Faction _faction;
+  public Faction Faction { get { if (!_faction) _faction = GetComponentInParent<Faction>(); return _faction; } }
 
   void OnEnable () {
     if (!animator) animator = GetComponentInChildren<Animator>();

@@ -28,6 +28,11 @@ public class Tile : MonoBehaviour {
   [Header("Initialization")]
   public GameObject selected;
   public GameObject attack;
+  public GameObject occupied;
+
+  void Update () {
+    if (occupied.activeSelf) occupied.SetActive(!selected.activeSelf && !attack.activeSelf);
+  }
 
   void OnMouseUpAsButton () {
     onSelected?.Invoke(this);
@@ -46,6 +51,10 @@ public class Tile : MonoBehaviour {
     Unit possibleOccupier = c.GetComponent<Unit>();
     if (possibleOccupier) {
       occupier = possibleOccupier;
+      if (possibleOccupier as PlayingUnit) {
+        occupied.GetComponent<Renderer>().material = (occupier as PlayingUnit).Faction.standingTileColor;
+        occupied.SetActive(true);
+      }
     }
   }
 
@@ -53,6 +62,9 @@ public class Tile : MonoBehaviour {
     Unit possibleOccupier = c.GetComponent<Unit>();
     if (possibleOccupier == occupier) {
       occupier = null;
+      if (possibleOccupier as PlayingUnit) {
+        occupied.SetActive(false);
+      }
     }
   }
 
