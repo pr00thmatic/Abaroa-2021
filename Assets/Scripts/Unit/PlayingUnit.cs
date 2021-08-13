@@ -21,6 +21,7 @@ public class PlayingUnit : Unit {
   }
 
   [Header("Initialization")]
+  public Attackable attackable;
   public Attack attack;
   public Motion motion;
   public Animator animator;

@@ -8,6 +8,7 @@ public class Attackable : MonoBehaviour {
 
   [Header("Configuration")]
   public int maxHP;
+  public bool diesWhenDead = false;
 
   [Header("Information")]
   public int currentHP;
@@ -27,7 +28,9 @@ public class Attackable : MonoBehaviour {
       onDead?.Invoke();
       unit.animator.SetBool("is dead", true);
       yield return new WaitForSeconds(2);
-      Destroy(gameObject);
+      if (diesWhenDead) {
+        Destroy(gameObject);
+      }
     }
   }
 }

@@ -28,15 +28,22 @@ public class Motion : MonoBehaviour {
   void OnEnable () {
     unit.onTurnBegin += HandleTurnBegin;
     unit.onTurnEnd += HandleTurnEnd;
-    if (unit.Faction.controlledByPlayer) {
-      unit.onSelected += OnSelected;
-    }
+    HandleControlChange();
+    unit.Faction.onControlChange += HandleControlChange;
   }
 
   void OnDisable () {
     unit.onTurnBegin -= HandleTurnBegin;
     unit.onTurnEnd -= HandleTurnEnd;
     unit.onSelected -= OnSelected;
+    unit.Faction.onControlChange -= HandleControlChange;
+  }
+
+  public void HandleControlChange () {
+      unit.onSelected -= OnSelected;
+    if (unit.Faction.controlledByPlayer) {
+      unit.onSelected += OnSelected;
+    }
   }
 
   public void DisplayMotion (Tile t, bool value) {
@@ -61,10 +68,82 @@ public class Motion : MonoBehaviour {
     Move(t);
   }
 
-  public void Move (Tile t) { StopAllCoroutines(); StartCoroutine(_Move(t)); }
-  IEnumerator _Move (Tile t) {
-    onStartMoving?.Invoke(this);
+  public List<Tile> GetPathTo (Tile t) {
+    List<Tile> visited = new List<Tile>();
+    Dictionary<Tile, float> distances = new Dictionary<Tile, float>();
+    distances[unit.standing] = 0;
+    Tile current = unit.standing;
+
+    int guard = 1000;
+    do {
+      if (visited.Contains(current)) continue;
+      foreach (Tile neigh in current.Adjascent) {
+        if (!neigh) continue;
+        if (neigh.occupier && neigh.occupier != unit as Unit && neigh.occupier != t.occupier) continue;
+        if (!distances.ContainsKey(neigh) || distances[current] + 1 < distances[neigh]) {
+          distances[neigh] = distances[current] + 1;
+        }
+      }
+
+      visited.Add(current);
+      current = null;
+      foreach (KeyValuePair<Tile, float> entry in distances) {
+        if (visited.Contains(entry.Key)) continue;
+        if (!current) { current = entry.Key; continue; }
+        if (entry.Value < distances[current]) {
+          current = entry.Key;
+        }
+      }
+    } while (current != t && guard-- > 0 && current != null);
+
+    if (current == null) return null;
+
+    List<Tile> path = new List<Tile>();
+    current = t;
+    guard = 1000;
+    do {
+      path.Add(current);
+      foreach (Tile tile in current.Adjascent) {
+        if (!tile) continue;
+        if (!distances.ContainsKey(tile)) continue;
+        if (distances[tile] < distances[current]) {
+          current = tile;
+        }
+      }
+    } while (current != unit.standing && guard-- > 0);
+
+    return path;
+  }
+
+  public void ExecutePath (List<Tile> reversedPath, int offset = 0, float distance = Mathf.Infinity) {
+    StartCoroutine(_ExecutePath(reversedPath, offset, distance));
+  }
+  public IEnumerator _ExecutePath (List<Tile> reversedPath, int offset = 0, float distance = Mathf.Infinity) {
     remainingActions = Mathf.Max(remainingActions-1, 0);
+
+    for (int i=reversedPath.Count-1; i>= offset; i--) {
+      distance--;
+      Tile destination = reversedPath[i];
+
+      while (Vector3.Distance(rootMotion.transform.position, destination.transform.position) > 0.05f) {
+        unit.animator.SetFloat("speed", animationSpeed);
+        forward.targetForward = Utils.SetY(destination.transform.position - rootMotion.transform.position, 0);
+        rootMotion.transform.position = Vector3.MoveTowards(rootMotion.transform.position, destination.transform.position,
+                                                            speed * Time.deltaTime);
+        yield return null;
+      }
+      if (distance <= 0) break;
+    }
+
+    forward.ForceComplete();
+    unit.animator.SetFloat("speed", 0);
+    onStopMoving?.Invoke(this);
+    unit.ConsumeAction();
+  }
+
+  public void Move (Tile t) { StopAllCoroutines(); StartCoroutine(_Move(t)); }
+  public IEnumerator _Move (Tile t) {
+    onStartMoving?.Invoke(this);
     unit.turn.DeselectSelected();
     Tile standing = unit.standing;
     Tile origin = t;
@@ -88,22 +167,7 @@ public class Motion : MonoBehaviour {
       yield return null;
     } while (origin != standing);
 
-
-    for (int i=path.Count-1; i>= 0; i--) {
-      Tile destination = path[i];
-
-      while (Vector3.Distance(rootMotion.transform.position, destination.transform.position) > 0.05f) {
-        unit.animator.SetFloat("speed", animationSpeed);
-        forward.targetForward = Utils.SetY(destination.transform.position - rootMotion.transform.position, 0);
-        rootMotion.transform.position = Vector3.MoveTowards(rootMotion.transform.position, destination.transform.position,
-                                                            speed * Time.deltaTime);
-        yield return null;
-      }
-    }
-    forward.ForceComplete();
-    unit.animator.SetFloat("speed", 0);
-    onStopMoving?.Invoke(this);
-    unit.ConsumeAction();
+    yield return StartCoroutine(_ExecutePath(path));
   }
 
   public void Dijkstra () {

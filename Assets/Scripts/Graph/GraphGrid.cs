@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace MatrixGraph {
-public class GraphGrid : MonoBehaviour {
+public class GraphGrid : NonPersistentSingleton<GraphGrid> {
   // [Header("Information")]
   public int Rows { get => tiles.childCount; }
   public int Cols { get => tiles.GetChild(0).childCount; }

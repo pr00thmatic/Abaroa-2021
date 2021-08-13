@@ -63,9 +63,13 @@ PrefabInstance:
       propertyPath: currentHP
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7723392528870025281, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
+      propertyPath: diesWhenDead
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8021143425821531170, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
       propertyPath: m_Name
-      value: Abaroa
+      value: Abaroa Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}

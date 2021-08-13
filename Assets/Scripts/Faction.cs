@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 [ExecuteInEditMode]
 public class Faction : MonoBehaviour {
+  public event System.Action onControlChange;
+
   [Header("Configuration")]
   public int id;
   public bool controlledByPlayer = false;
@@ -15,6 +17,11 @@ public class Faction : MonoBehaviour {
   public Material factionColor;
   public Material standingTileColor;
   public GameObject onDefeat;
+
+  void OnEnable () {
+    if (Utils.TwoPlayersPlaying) controlledByPlayer = true;
+    onControlChange?.Invoke();
+  }
 
   void Update () {
     if (aknowledgedChildren != transform.childCount) {

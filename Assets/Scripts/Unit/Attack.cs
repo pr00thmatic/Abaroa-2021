@@ -18,15 +18,22 @@ public class Attack : MonoBehaviour {
   void OnEnable () {
     unit.onTurnBegin += HandleTurnBegin;
     unit.onTurnEnd += HandleTurnEnd;
-    if (unit.Faction.controlledByPlayer) {
-      unit.onSelected += OnSelected;
-    }
+    HandleControlChange();
+    unit.Faction.onControlChange += HandleControlChange;
   }
 
   void OnDisable () {
     unit.onTurnBegin -= HandleTurnBegin;
     unit.onTurnEnd -= HandleTurnEnd;
     unit.onSelected -= OnSelected;
+    unit.Faction.onControlChange -= HandleControlChange;
+  }
+
+  public void HandleControlChange () {
+    unit.onSelected -= OnSelected;
+    if (unit.Faction.controlledByPlayer) {
+      unit.onSelected += OnSelected;
+    }
   }
 
   public void AttackIt (Unit other) {

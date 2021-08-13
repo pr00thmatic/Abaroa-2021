@@ -182,6 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ecb622e0c9c08341856e426cd35a2f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  orientation: 1
 --- !u!1 &3864300682001802217
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,6 +384,7 @@ MonoBehaviour:
   standing: {fileID: 0}
   turn: {fileID: 0}
   hasRemainingActions: 0
+  attackable: {fileID: 7723392528870025281}
   attack: {fileID: 1748064314169950428}
   motion: {fileID: 1282513269}
   animator: {fileID: 0}
@@ -417,5 +419,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 5
+  diesWhenDead: 1
   currentHP: 5
   unit: {fileID: 1967506400575569386}
