@@ -41,10 +41,16 @@ public class Tile : MonoBehaviour {
 
   void OnMouseOver () {
     isMouseOver = true;
+    if (occupier && occupier as PlayingUnit) {
+      (occupier as PlayingUnit).overlays.OnMouseOver();
+    }
   }
 
   void OnMouseExit () {
     isMouseOver = false;
+    if (occupier && occupier as PlayingUnit) {
+      (occupier as PlayingUnit).overlays.OnMouseExit();
+    }
   }
 
   void OnTriggerStay (Collider c) {

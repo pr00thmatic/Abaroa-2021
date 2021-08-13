@@ -15,6 +15,9 @@ public class TurnManager : MonoBehaviour {
   public Motion blockedByMotion = null;
   public List<PlayingUnit> unitsInTurn;
 
+  [Header("Initialization")]
+  public Faction myFaction;
+
   void OnEnable () {
     PlayingUnit.onClicked += HandleUnitClick;
     Tile.onAnySelected += HandleTileClick;

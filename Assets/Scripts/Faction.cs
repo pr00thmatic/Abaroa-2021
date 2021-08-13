@@ -14,6 +14,8 @@ public class Faction : MonoBehaviour {
   public int aknowledgedChildren = 0;
 
   [Header("Initialization")]
+  public string factionName;
+  public Sprite flag;
   public Material factionColor;
   public Material standingTileColor;
   public GameObject onDefeat;

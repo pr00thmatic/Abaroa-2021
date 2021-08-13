@@ -25,12 +25,12 @@ public class Overlays : MonoBehaviour {
     attackable.onHPChange -= HandleHPChange;
   }
 
-  void OnMouseOver () {
+  public void OnMouseOver () {
     isMouseOver = true;
     onOverlay?.Invoke(unit);
   }
 
-  void OnMouseExit () {
+  public void OnMouseExit () {
     isMouseOver = false;
     onExit?.Invoke(unit);
   }

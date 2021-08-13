@@ -384,6 +384,9 @@ MonoBehaviour:
   standing: {fileID: 0}
   turn: {fileID: 0}
   hasRemainingActions: 0
+  overlays: {fileID: 5961306393449211443}
+  name: 
+  portrait: {fileID: 0}
   attackable: {fileID: 7723392528870025281}
   attack: {fileID: 1748064314169950428}
   motion: {fileID: 1282513269}

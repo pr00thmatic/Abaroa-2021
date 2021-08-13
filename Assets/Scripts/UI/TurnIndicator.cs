@@ -25,6 +25,8 @@ public class TurnIndicator : MonoBehaviour {
   }
 
   public void Pass () {
-    turnsManager.SetNextState();
+    if (turnsManager.GetCurrentState().GetComponent<TurnManager>().myFaction.controlledByPlayer) {
+      turnsManager.SetNextState();
+    }
   }
 }

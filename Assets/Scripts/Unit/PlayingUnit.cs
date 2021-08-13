@@ -21,6 +21,7 @@ public class PlayingUnit : Unit {
   }
 
   [Header("Initialization")]
+  public Overlays overlays;
   public new string name;
   public Sprite portrait;
   public Attackable attackable;
