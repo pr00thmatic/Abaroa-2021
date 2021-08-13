@@ -93,6 +93,14 @@ PrefabInstance:
       propertyPath: power
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1967506400575569386, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
+      propertyPath: name
+      value: Comandante
+      objectReference: {fileID: 0}
+    - target: {fileID: 1967506400575569386, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
+      propertyPath: portrait
+      value: 
+      objectReference: {fileID: 21300000, guid: 39592ec1eed4f204cbfab9a0200ff630, type: 3}
     - target: {fileID: 3864300682001802217, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
       propertyPath: m_IsActive
       value: 0

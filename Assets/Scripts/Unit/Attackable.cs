@@ -12,6 +12,7 @@ public class Attackable : MonoBehaviour {
 
   [Header("Information")]
   public int currentHP;
+  public float NormalizedHP { get => currentHP / (float) maxHP; }
 
   [Header("Initialization")]
   public PlayingUnit unit;
