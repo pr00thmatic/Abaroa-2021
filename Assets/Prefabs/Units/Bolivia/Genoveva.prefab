@@ -121,6 +121,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: ed9cd30098feabb46ac3ac0372438c56, type: 2}
+    - target: {fileID: 1748064314169950428, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
+      propertyPath: power
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748064314169950428, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
+      propertyPath: actions
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1967506400575569386, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
       propertyPath: name
       value: Genoveva
@@ -224,6 +232,14 @@ PrefabInstance:
     - target: {fileID: 7665916049715648729, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.3310666
+      objectReference: {fileID: 0}
+    - target: {fileID: 7723392528870025281, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
+      propertyPath: maxHP
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7723392528870025281, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
+      propertyPath: currentHP
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8021143425821531170, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
       propertyPath: m_Name

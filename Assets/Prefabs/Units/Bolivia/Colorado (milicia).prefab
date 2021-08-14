@@ -29,6 +29,10 @@ PrefabInstance:
       propertyPath: animationSpeed
       value: 1.6
       objectReference: {fileID: 0}
+    - target: {fileID: 1748064314169950428, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
+      propertyPath: power
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1967506400575569386, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
       propertyPath: name
       value: Miliciano
@@ -71,11 +75,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7723392528870025281, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
       propertyPath: maxHP
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7723392528870025281, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
       propertyPath: currentHP
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8021143425821531170, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
       propertyPath: m_Name

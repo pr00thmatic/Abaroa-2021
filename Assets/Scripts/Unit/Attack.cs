@@ -59,6 +59,7 @@ public class Attack : MonoBehaviour {
   }
 
   public List<Attackable> GetAttackables () {
+    if (!unit.standing) return new List<Attackable>();
     List<Tile> adjascent = unit.standing.Adjascent;
     List<Attackable> attackables = new List<Attackable>();
 

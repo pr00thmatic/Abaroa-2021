@@ -30,6 +30,6 @@ public class StartButton : MonoBehaviour {
     yield return new WaitForSeconds(1);
     ajayus.Stop();
     yield return new WaitForSeconds(3);
-    SceneManager.UnloadSceneAsync("vortice temporal");
+    SceneManager.UnloadSceneAsync("main menu");
   }
 }

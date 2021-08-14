@@ -10,6 +10,10 @@ public class FactionAI : MonoBehaviour {
     TurnManager.onTurnBegin += HandleTurnBegin;
   }
 
+  void OnDisable () {
+    TurnManager.onTurnBegin -= HandleTurnBegin;
+  }
+
   IEnumerator _TakeAction () {
     bool keepGoing = false;
 

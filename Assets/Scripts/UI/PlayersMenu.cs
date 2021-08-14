@@ -10,7 +10,7 @@ public class PlayersMenu : MonoBehaviour {
   public Animator animator;
 
   void Awake () {
-    if (PlayerPrefs.HasKey("player")) {
+    if (PlayerPrefs.HasKey("players")) {
       players = PlayerPrefs.GetInt("players");
     }
     animator.SetInteger("players", players);
