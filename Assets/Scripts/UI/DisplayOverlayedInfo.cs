@@ -39,8 +39,8 @@ public class DisplayOverlayedInfo : MonoBehaviour {
     hpBar.fillAmount = unit.attackable.NormalizedHP;
     atk.text = unit.attack.power + "";
     mov.text = unit.motion.distance + "";
-    availableAtk.text = unit.attack.remainingActions + "" + unit.attack.actions;
-    availableMov.text = unit.motion.remainingActions + "" + unit.motion.actions;
+    availableAtk.text = unit.attack.remainingActions + "/" + unit.attack.actions;
+    availableMov.text = unit.motion.remainingActions + "/" + unit.motion.actions;
     cantAttack.gameObject.SetActive(!unit.attack.CanAttackAdjascent());
     portrait.sprite = unit.portrait;
   }

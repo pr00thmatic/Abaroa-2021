@@ -106,6 +106,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1282513269, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
+      propertyPath: actions
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1282513269, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
       propertyPath: distance
       value: 10
       objectReference: {fileID: 0}

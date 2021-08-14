@@ -43,6 +43,10 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 4445657059555825946}
+    - target: {fileID: 1967506400575569386, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
+      propertyPath: portrait
+      value: 
+      objectReference: {fileID: 21300000, guid: 603b7193c4166454992e5ae5c1779a79, type: 3}
     - target: {fileID: 7213363481091573400, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
       propertyPath: m_RootOrder
       value: 0
