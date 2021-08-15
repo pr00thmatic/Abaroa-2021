@@ -2742,6 +2742,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2907476795664622964, guid: 13655ccba595eed4dbd35e868de29179, type: 3}
+      propertyPath: diesWhenDead
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3181438383763132695, guid: 13655ccba595eed4dbd35e868de29179, type: 3}
       propertyPath: m_Name
       value: Abaroa

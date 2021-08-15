@@ -21,6 +21,10 @@ public class TurnManager : MonoBehaviour {
   void OnEnable () {
     PlayingUnit.onClicked += HandleUnitClick;
     Tile.onAnySelected += HandleTileClick;
+    StartCoroutine(_EventuallyBegin());
+  }
+  IEnumerator _EventuallyBegin () {
+    yield return null;
     BeginTurn(); // TODO: remove?
   }
 
