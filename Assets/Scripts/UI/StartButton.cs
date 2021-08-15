@@ -7,6 +7,7 @@ using System.Collections.Generic;
 public class StartButton : MonoBehaviour {
   [Header("Configuration")]
   public string sceneToLoad = "start";
+  public string sceneToUnload = "main menu";
 
   [Header("Initialization")]
   public Animator title;
@@ -17,10 +18,14 @@ public class StartButton : MonoBehaviour {
   public GameObject unloadCameras;
   public GameObject ocluder;
 
+  void Reset () {
+    sceneToUnload = gameObject.scene.name;
+  }
+
   void OnMouseUpAsButton () { StartCoroutine(_Start()); }
-  IEnumerator _Start () {
-    title.SetTrigger("out");
-    menu.SetTrigger("out");
+  public IEnumerator _Start () {
+    if (title) title.SetTrigger("out");
+    if (menu) menu.SetTrigger("out");
     yield return new WaitForSeconds(3);
     SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Additive);
     mainCameras.SetActive(false);
@@ -30,6 +35,6 @@ public class StartButton : MonoBehaviour {
     yield return new WaitForSeconds(1);
     ajayus.Stop();
     yield return new WaitForSeconds(3);
-    SceneManager.UnloadSceneAsync("main menu");
+    SceneManager.UnloadSceneAsync(sceneToUnload);
   }
 }

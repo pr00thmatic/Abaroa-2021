@@ -15,9 +15,18 @@ EditorBuildSettings:
     path: Assets/Scenes/vortice temporal abaroa.unity
     guid: c40cb8ed62b9c5447841f38e48fd0bd3
   - enabled: 1
-    path: Assets/Scenes/the after maths of abaroas vortex.unity
-    guid: 474504cb16fdc1e4280aaa19da3b754c
-  - enabled: 1
     path: Assets/Scenes/final level.unity
     guid: 4055e8ab1b971dd4ea26ff16a400cb98
+  - enabled: 1
+    path: Assets/Scenes/the after maths of abaroas vortex.unity
+    guid: 4c1a927353021e74d9596215b42cef76
+  - enabled: 1
+    path: Assets/Scenes/vortice temporal Bolivia victory.unity
+    guid: e1f110a11ab4598468d8b3066a8e48ca
+  - enabled: 1
+    path: Assets/Scenes/vortice temporal Bolivia defeat.unity
+    guid: fa0e16046f269fa49800f131c4251055
+  - enabled: 1
+    path: Assets/Scenes/final cinematics.unity
+    guid: 9d02020463751eb4b8e5231b9daf1d14
   m_configObjects: {}

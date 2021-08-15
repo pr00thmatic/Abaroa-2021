@@ -95,8 +95,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1967506400575569386, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
       propertyPath: name
-      value: Comandante
+      value: Sargento Boliviano
       objectReference: {fileID: 0}
+    - target: {fileID: 1967506400575569386, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1116926897854101041}
     - target: {fileID: 1967506400575569386, guid: aa764d3b1deb96a449e32c5d44c04aa4, type: 3}
       propertyPath: portrait
       value: 
@@ -285,6 +289,11 @@ PrefabInstance:
       objectReference: {fileID: 22100000, guid: 7ae83ba8ecb368d43a1ad1582e4a6176, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fbc394fb49e90ab4784cb38ece0c986e, type: 3}
+--- !u!95 &1116926897854101041 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: fbc394fb49e90ab4784cb38ece0c986e, type: 3}
+  m_PrefabInstance: {fileID: 6839431478832303008}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2072711203400374291 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4767400413853537203, guid: fbc394fb49e90ab4784cb38ece0c986e, type: 3}

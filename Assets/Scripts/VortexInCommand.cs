@@ -13,11 +13,11 @@ public class VortexInCommand : MonoBehaviour {
   public Animator animator;
   public GameObject root;
 
-  void Update () {
-    if (Input.GetKeyDown(KeyCode.Space)) {
-      SummonVortex();
-    }
-  }
+  // void Update () {
+  //   if (Input.GetKeyDown(KeyCode.Space)) {
+  //     SummonVortex();
+  //   }
+  // }
 
   public void SummonVortex (float exitTime = 3) { StartCoroutine(_SummonVortex(exitTime)); }
   IEnumerator _SummonVortex (float exitTime) {
