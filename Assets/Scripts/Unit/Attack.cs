@@ -10,6 +10,8 @@ public class Attack : MonoBehaviour {
   public int power = 1;
 
   [Header("Initialization")]
+  public AudioSource speaker;
+  public AudioClip sfx;
   public PlayingUnit unit;
   public int remainingActions;
   public bool HasRemainingActions { get => remainingActions > 0 && CanAttackAdjascent(); }
@@ -38,6 +40,7 @@ public class Attack : MonoBehaviour {
 
   public void AttackIt (Unit other) {
     if (!CanAttack(other)) return;
+    speaker.PlayOneShot(sfx);
     forward.targetForward = other.transform.position - transform.position;
     remainingActions = Mathf.Max(remainingActions-1, 0);
     unit.animator.SetTrigger("attack");

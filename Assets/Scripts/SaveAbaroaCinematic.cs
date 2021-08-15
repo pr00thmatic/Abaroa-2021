@@ -8,6 +8,7 @@ public class SaveAbaroaCinematic : MonoBehaviour {
   public float waitCarajo = 4;
   public float waitVortex = 5;
   public float vortexUnsummonTime = 1;
+  public bool fired = false;
 
   [Header("Initialization")]
   public Attackable attackable;
@@ -23,6 +24,8 @@ public class SaveAbaroaCinematic : MonoBehaviour {
 
   public void TriggerCinematic () { StartCoroutine(_TriggerCinematic()); }
   IEnumerator _TriggerCinematic () {
+    if (fired) yield break;
+    fired = true;
     description.Play();
     ai.enabled = false;
     turns.SetActive(false);
